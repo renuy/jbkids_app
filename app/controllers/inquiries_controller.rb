@@ -1,4 +1,6 @@
 class InquiriesController < ApplicationController
+  before_filter :authenticate_user!, :only => [:destroy, :edit, :index, :show, :update]
+  before_filter :authenticate_strata_user!, :only => [:destroy, :edit, :index, :show, :update]
   # GET /inquiries
   # GET /inquiries.xml
   def index
@@ -81,4 +83,16 @@ class InquiriesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+    def authenticate_strata_user!
+    if  !current_user.strata_employee? 
+      flash[:error] = "Not authorized to update"
+      respond_to do |format|
+        format.html {redirect_to quizzes_path}# new.html.erb
+        format.xml  
+        
+      end
+    end
+  end
+
 end
