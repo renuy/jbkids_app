@@ -1,5 +1,7 @@
 JbkidsApp::Application.routes.draw do
 
+  resources :inquiries
+
   resources :quizzes
 
   resources :signups

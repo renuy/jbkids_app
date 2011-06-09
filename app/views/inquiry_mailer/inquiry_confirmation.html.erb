@@ -1,0 +1,40 @@
+<div style="width:850px;">
+<div style="width:750px; padding-left:50px">
+
+Dear (<b><%= @inquiry.name %></b>),
+	<br/>
+	<br/>
+	Thank you for your interest in JustBooksClc!
+  <br/>
+	<br/>Your corporation (<%=@inquiry.corporate_name%> ) has shown interest in having <%=get_shop(@inquiry) %>.
+	<br/><%= get_access(@inquiry) %>, with 
+	<%= get_pay(@inquiry) %>
+  <br/>
+  <br/> The contact details submited by you are :<br/>
+  For corporation : <u><%=@inquiry.corporate_name %></u><br/>
+  Contact Person : <u><%=@inquiry.name %></u><br/>
+  Email :<u><%=@inquiry.email %></u><br/>
+  Phone :<u><%=@inquiry.phone %></u><br/>
+  
+  <br/>
+  <br/>
+  We shall get back to you shortly.
+  
+  <br/>
+<br/>  
+	<b><u><i>About JustBooks clc:</i></u></b>
+	<br/>
+	JustBooks clc is a new generation book library chain that provides a unique reading experience to book lovers with a wide range of books for every type of reader - Toddlers to Teens, Dabblers to Bookworms under a modern, vibrant ambience with effective use of technology. Like we love saying - At JustBooks, there is a book for everyone in the family.
+	<br/>
+	Warm Regards,
+	<br/>
+	Team JustBooks
+	<br/>
+	<br/>
+	Contact Customer care:
+	<br/>T: 080-60015285
+	<br/>E: <a href="mailto:care@justbooksclc.com">care@justbooksclc.com</a>
+	<br/>W: <a href="http://corporate.justbooksclc.com">corporate.justbooksclc.com</a>
+	<br/>
+</div>
+</div>

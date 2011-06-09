@@ -30,6 +30,12 @@
   font:Arial;
   font-size:12px;
 }
+#corp_footer {
+	left:40px;
+  color: #DBDBDB;
+  font:Arial;
+  font-size:12px;
+}
 
 .background{
   background: url(../images/bg.jpg);
@@ -645,6 +651,31 @@ font-weight:bold; font-family: "Tw Cen MT Condensed";
 color:gray;}
 input.search_button{height:25px;width:35px; float:right;}
 
+.inqSection
+{margin:2px 0px 0px 0px; padding:0px 0px 0px 10px; font-size:14px; width:185px; height:50px;
+background: url(../images/search.png) no-repeat;
+font-size:14px; 
+font-weight:bold; 
+font-family: "Tw Cen MT Condensed";
+}
+input.inqTextbox{border:none; font-size:14px; 
+font-weight:bold; font-family: "Tw Cen MT Condensed";
+color:gray;}
+
+div.inq_box{
+
+//height:900px;
+width:934px;
+background: url(../images/inq_box.png) repeat-y;
+padding: 0px 10px 0px 20px;
+
+}
+
+div.inq_inner_box{
+
+padding: 10px 30px 10px 40px;
+
+}
 
 .searchListBox
 {margin:0px 2px 0px 5px; padding:0px; height:20px; border:0px; font-size:14px; 

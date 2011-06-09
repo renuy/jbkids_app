@@ -1,0 +1,83 @@
+<div class="inq_inner_box">
+<%= form_for(@inquiry) do |f| %>
+  <% if @inquiry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@inquiry.errors.count, "error") %> prohibited this inquiry from being saved:</h2>
+
+      <ul>
+      <% @inquiry.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="span-22">
+    <h2> Help us tailor a plan for your employees </h2>
+    <div class="span-10" >
+      <div class="heading">Select Shop</div>
+    
+      <h4> <%= f.radio_button(:shop_choice, "InPremise", :checked=>false) %> 
+      In-premise setup with stock swap</h4>
+      <ul>
+        <li>The corporate provides the space & infrastructure (book shelves, internet connectivity) </li>
+        <li>We provide the stock & the self service kiosk. </li>
+        <li>Depending on the number of people who sign up, an initial collection is chosen 10% of which is replaced on a periodic basis every month</li>
+      </ul>
+    
+      <h4><%= f.radio_button(:shop_choice, "NoInPremise", :checked=>false) %> No in-premise setup, but periodic delivery at office</h4>
+      <ul>
+        <li>We run signup campaigns at the corporate and the signed up members can request for delivery of books once every week at their office. </li>
+      </ul>
+      <h4><%= f.radio_button(:shop_choice, "CorpPlan", :checked=>false) %> Special corporate plans</h4>
+      <ul>
+        <li>If more than 100 people sign up from a corporate, we look to create some special plans that could include reduction in registration fee & refundable deposit. </li>
+        <li>In this model though, there are no special services offered and the signing up members are assumed to be using any of the existing facilities of JustBooks</li>
+      </ul>
+    </div>
+    
+    <div class="span-10">
+      <div class="heading">Further More</div>
+      <h4> <u>Access Point </u></h4>
+    
+      <h4><%= f.radio_button(:access_points, "All", :checked => false) %> 
+      Will the members signing up at the corporate want to have access to other libraries of JustBooks? </h4>
+    
+      <h4><%= f.radio_button(:access_points, "Restricted", :checked => false) %> 
+      Or would they want to have a restricted access to only a corporate membership. </h4>
+      <ul>
+        <li>The former gives them more options while the latter could give them a discounted price point</li>
+      </ul>
+      <h4> <u>Who Pays </u></h4>
+      <h4>
+        <%= f.radio_button(:pay_options, "Member", :checked =>false) %> 
+        Will the members be paying for the service
+      </h4>
+    
+      <h4><%= f.radio_button(:pay_options, "Corporate", :checked =>false) %> will the corporate pay? </h4>
+
+      <ul>
+        <li>We are open to both. The former, gives the members a choice of plans depending on the number of books they would want to subscribe for while the latter gives the corporate a choice of creating an employee engagement program.
+        </li>
+      </ul>
+    </div>  
+  </div>
+  <div class="span-22">
+    <h4>Please leave your contact details to enable us to get back to you</h4>
+    <div class="span-20">
+      <div class="inqSection span-9"> <%= f.text_field(:corporate_name, :size => 25, :class =>"inqTextbox", :placeholder => 'Corporation' ) %></div>
+      <div class="inqSection span-9"><%= f.text_field(:city, :size => 25, :class =>"inqTextbox", :placeholder => 'City' ) %></div>
+    </div>
+    <div class="span-20">
+      <div class="inqSection span-9"><%= f.text_field(:name, :size => 25, :class =>"inqTextbox", :placeholder => 'Contact Person' ) %></div>
+      <div class="inqSection span-9"><%= f.email_field(:email, :size => 25, :class =>"inqTextbox", :placeholder => 'Email' ) %><br/></div>
+    </div>
+    <div class="span-20">
+      <div class="inqSection span-9"><%= f.text_field(:phone, :size => 25, :class =>"inqTextbox", :placeholder => 'Phone#' ) %></div>
+    </div>
+    
+  </div>
+  <div class="span-22 actions">
+    <%= f.submit "Post Query" ,:class=>'btn_link' %>
+  </div>
+<% end %>
+</div>
