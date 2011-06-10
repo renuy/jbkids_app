@@ -1,5 +1,29 @@
+<div class="span-22 inq_box" >
+<div class="inq_inner_box">
+
 <p id="notice"><%= notice %></p>
 
 
+<b><%= @inquiry.name %></b> of <%=@inquiry.corporate_name%>  has shown interest in having <%=get_shop(@inquiry) %>.
+	<br/><%= get_access(@inquiry) %>, with 
+	<%= get_pay(@inquiry) %>
+  <br/>
+  <br/> The contact details submited by you are :<br/>
+  For corporation : <u><%=@inquiry.corporate_name %></u><br/>
+  Contact Person : <u><%=@inquiry.name %></u><br/>
+  Email :<u><%=@inquiry.email %></u><br/>
+  Phone :<u><%=@inquiry.phone %></u><br/>
+  City : <u><%=@inquiry.city %> </u></br>
+  <br/>
+  <br/>
+  This inquiry is was created <%= distance_of_time_in_words(@inquiry.created_at, Time.zone.now) %> ago <%= " - and updated #{distance_of_time_in_words(@inquiry.updated_at, Time.zone.now)} ago" %> <br/>
+  
+  <br/>
+<br/>  
+	
+</div>
+</div>
 <%= link_to 'Edit', edit_inquiry_path(@inquiry) %> |
 <%= link_to 'Back', inquiries_path %>
+</div>
+</div>
