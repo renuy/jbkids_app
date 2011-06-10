@@ -4,10 +4,11 @@ class InquiriesController < ApplicationController
   # GET /inquiries
   # GET /inquiries.xml
   def index
-    @inquiries = Inquiry.all
+    
+    @inquiries = Inquiry.all(:order => 'id desc').paginate(:page => params[:page], :per_page=>15)
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { render 'index' }
       format.xml  { render :xml => @inquiries }
     end
   end
@@ -18,7 +19,7 @@ class InquiriesController < ApplicationController
     @inquiry = Inquiry.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { render 'show'}
       format.xml  { render :xml => @inquiry }
     end
   end
@@ -29,7 +30,7 @@ class InquiriesController < ApplicationController
     @inquiry = Inquiry.new
 
     respond_to do |format|
-      format.html {render 'new', :layout=>'corp'}# new.html.erb
+      format.html { render 'new', :layout=>'corp'}# new.html.erb
       format.xml  { render :xml => @inquiry}
     end
   end
@@ -37,6 +38,7 @@ class InquiriesController < ApplicationController
   # GET /inquiries/1/edit
   def edit
     @inquiry = Inquiry.find(params[:id])
+    render 'edit' , :layout=>'corp'
   end
 
   # POST /inquiries
@@ -86,9 +88,9 @@ class InquiriesController < ApplicationController
   
     def authenticate_strata_user!
     if  !current_user.strata_employee? 
-      flash[:error] = "Not authorized to update"
+      flash[:error] = "Not authorized to view or update"
       respond_to do |format|
-        format.html {redirect_to quizzes_path}# new.html.erb
+        format.html {redirect_to root_path}# new.html.erb
         format.xml  
         
       end

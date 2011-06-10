@@ -1,6 +1,10 @@
 <div class="span-22 inq_box" >
+<div class="inq_inner_box">
+<% if user_signed_in? and current_user.strata_employee? %>
+  <h3><%= link_to  "All Inquiries", inquiries_path , :class=> "btn_link" %></h3>
+<%end%>
 <h1>Corporate Queries</h1>
-
+</div>
 <%= render 'form' %>
 
 <%= link_to 'Back', :back %>
