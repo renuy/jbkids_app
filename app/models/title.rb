@@ -7,7 +7,7 @@ class Title < ActiveRecord::Base
   has_many   :quiz, :class_name => "Quiz"
   attr_accessible :title, :yearofpublication, :edition, :isbn10, :isbn13, :noofpages, :language ,:no_of_rented, :title_type
   
-  BRANCH = ['1','1','3']
+  BRANCH = ['44','30','29']
   #has_many :branch, :through => :stock
   
   validates :title, :presence => true
