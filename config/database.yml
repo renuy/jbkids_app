@@ -2,7 +2,7 @@
 #   gem install sqlite3-ruby (not necessary on OS X Leopard)
 development:
   adapter: oracle_enhanced
-  database: XE
+  database: xe
   username: jbkids
   password: jbkids
   
@@ -35,3 +35,10 @@ other_development:
   user : root
   password : Iflex7585
   timeout: 5000
+
+memp_db:
+  adapter: oracle_enhanced
+  database: xe
+  username: memp
+  password: memp
+  
