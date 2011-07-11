@@ -382,6 +382,11 @@ a.signup_button {
 input.readonly {
 	border:none;
 }
+input.readonlytot{
+	border:none;
+  color:green;
+  font-weight:bold;
+}
 input.link{
 	border:none;
   background-color:olive;
