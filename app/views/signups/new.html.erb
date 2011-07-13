@@ -1,6 +1,7 @@
-<div class="input_box">  
+<div class="span-22 inq_box" >
+  <div class="inq_inner_box">  
   <div class="breadcrumb"> Signup From : <%= Time.now.strftime('%d-%b-%Y') %> To : <%= (Time.now + @signup.signup_months.months).strftime('%d-%b-%Y') %></div>
-  <div class="inner_box">  
+  
 
     <%= render 'form' %>
 

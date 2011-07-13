@@ -41,19 +41,30 @@ class SignupsController < ApplicationController
     @signup.email = current_user.email
     @signup.name = current_user.username
     @signup.branch_id=params[:b]
+    @signup.discount = 0
+    coupon = @plan.discount_coupon(@signup.branch_id)
+    unless  coupon.nil?
+      @signup.discount = coupon.discount
+      @signup.coupon_id = coupon.id
+      @signup.coupon_no = coupon.id
+    end
+
     if (@plan.subscription)
       @signup.security_deposit = @plan.sec_dep
       @signup.registration_fee = @plan.registration_fee
       @signup.reading_fee = @plan.renewAmount(signUpMonths)
-      @signup.paid_amt = @plan.sec_dep + @plan.registration_fee + @plan.renewAmount(signUpMonths)
+      @signup.paid_amt = @plan.sec_dep + @plan.registration_fee + @plan.renewAmount(signUpMonths) - @signup.discount
     else
       @signup.security_deposit = @plan.ppb_sec_dep(signUpMonths)
       @signup.registration_fee = @plan.registration_fee
       @signup.reading_fee = @plan.ppb_read_fee(signUpMonths)
-      @signup.paid_amt = @plan.ppb_amount(signUpMonths) + @plan.registration_fee 
+      @signup.paid_amt = @plan.ppb_amount(signUpMonths) + @plan.registration_fee  - @signup.discount
     end
-    @signup.discount = 0
+    
+    
     @signup.overdue_amt = 0
+    
+    render 'new' , :layout => 'corp'
   end
   
   def create
@@ -73,7 +84,29 @@ class SignupsController < ApplicationController
       #SignupMailer.registration_confirmation(@signup).deliver
       redirect_to :action=>"new", :controller=>"payments", :id => @signup.id,:for=>'sig'
     else
-      render :action => "new"
+      @signup.discount = 0
+      coupon = @plan.discount_coupon(@signup.branch_id)
+      unless  coupon.nil?
+        @signup.discount = coupon.discount
+        @signup.coupon_id = coupon.id
+        @signup.coupon_no = coupon.id
+      end
+      signUpMonths = @signup.signup_months
+      if (@plan.subscription)
+        @signup.security_deposit = @plan.sec_dep
+        @signup.registration_fee = @plan.registration_fee
+        @signup.reading_fee = @plan.renewAmount(signUpMonths)
+        @signup.paid_amt = @plan.sec_dep + @plan.registration_fee + @plan.renewAmount(signUpMonths) - @signup.discount
+      else
+        @signup.security_deposit = @plan.ppb_sec_dep(signUpMonths)
+        @signup.registration_fee = @plan.registration_fee
+        @signup.reading_fee = @plan.ppb_read_fee(signUpMonths)
+        @signup.paid_amt = @plan.ppb_amount(signUpMonths) + @plan.registration_fee  - @signup.discount
+      end
+      
+      
+      @signup.overdue_amt = 0
+      render 'new' , :layout => 'corp'
     end
         
   end
