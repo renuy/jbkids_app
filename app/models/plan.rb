@@ -1,6 +1,8 @@
 class Plan < ActiveRecord::Base
   WAIVER_PLAN = 26
   has_and_belongs_to_many :branches
+  has_and_belongs_to_many :coupons
+
   belongs_to :new_plan, :foreign_key => "new_plan_id", :class_name => "Plan"
   def renewable?
     (self.allow_renewal.upcase.eql?('NO') or self.allow_renewal.upcase.eql?('BUL')  or self.frequency.upcase.eql?("N") or  self.expired? or self.id == WAIVER_PLAN) ? false : true
@@ -117,7 +119,7 @@ class Plan < ActiveRecord::Base
     return amount
   end
   
-    def ppb_read_fee(books_cnt)
+  def ppb_read_fee(books_cnt)
     amount = 0
     if self.frequency.upcase.eql?("N")
       amount = (self.read_fee) * books_cnt
@@ -142,4 +144,22 @@ class Plan < ActiveRecord::Base
     self.plan_type.upcase.eql?("C") ? true : false
   end
   
+  def hasDiscount?(branch_id)
+    self.discount_coupon(branch_id).nil? ? false : true
+  end
+  
+  def discount(branch_id)
+    coupon = self.discount_coupon(branch_id)
+    coupon.nil? ? 0 : coupon.discount
+  end
+  
+  def discount_coupon(branch_id)
+    branch = Branch.find(branch_id)
+    coupons = branch.coupons.find(:all, :conditions=>["amount=0 AND discount>0 AND expiry_date>=sysdate and start_date<=sysdate"])&self.coupons.find(:all, :conditions=>["amount=0 AND discount>0 AND expiry_date>=sysdate and start_date<=sysdate"])
+    if coupons.size > 0
+      coupons[0] 
+    else
+      nil
+    end
+  end
 end
