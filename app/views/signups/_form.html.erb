@@ -12,6 +12,7 @@
       <%= f.hidden_field :overdue_amt, :value=> @signup.overdue_amt%>
       <%= f.hidden_field :coupon_id,:value=> @signup.coupon_id %>
       <%= f.hidden_field :coupon_no,:value=> @signup.coupon_no %>
+      <%= f.hidden_field :branch_id,:value=> @signup.branch_id %>
       <div class="span-12">
         
         <%= field_set_tag 'Contact Details' do %>
@@ -55,10 +56,11 @@
       </div>
   </div>
   <div class="span-7"> 
-      <%= f.collection_select(:branch_id, Branch.find(:all, :conditions=>['id in(?)',Title::BRANCH]), :id, :name, {:include_blank => 'Select Branch'} ) %> <br/>
-     
-      <%= f.collection_select(:info_source_id, InformationSource.find(:all), :id, :name, {:include_blank => 'How did you come to know about us?'} )%>
+      <span class="span-6"> Store : 
+      <%= f.label @signup.branch.branch_name %></span>
+      <span class="span-6"><%= f.collection_select(:info_source_id, InformationSource.find(:all), :id, :name, {:include_blank => 'How did you come to know about us?'} )%>
       <br/><br/>
+      </span>
       <div class="actions">
         <%= f.submit  "CONTINUE", :class=>"btn_link" %>
         <%= link_to 'Back', :back %>  
