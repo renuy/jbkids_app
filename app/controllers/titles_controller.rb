@@ -34,13 +34,13 @@ class TitlesController < ApplicationController
 #    end
  
     newSearch.build do
-      keywords params[:query] do
+      keywords params[:query] {minimum_match 1} do
         highlight :title, :publisher, :author
       end
     end
     
     search.build do
-      keywords(params[:query] )
+      keywords(params[:query]) {minimum_match 1}
     end
       
     search.build do
@@ -94,14 +94,15 @@ class TitlesController < ApplicationController
     @shelf4 = @searchResults.results
     
     @shelf0.each do |row|  
-      if i<4
+      if i<4 
         case i
           when 0 then per_page = 3
           when 1 then per_page = 1
           when 2 then per_page = 2
           when 3 then per_page = 1
         end
-        @shelf_name[i] = row.instance.name
+        
+        @shelf_name[i] = row.instance.name unless row.instance.nil?
         @cat_id[i] = row.value
         cat_search = Sunspot.new_search(Title) do
           paginate(:page => params[:page], :per_page => per_page)
@@ -131,7 +132,7 @@ class TitlesController < ApplicationController
       paginate(:page => params[:page], :per_page => params[:per_page])
     end
     search.build do
-      keywords(params[:query] )
+      keywords(params[:query] ) {minimum_match 1}
     end
     
     search.build do 
@@ -244,8 +245,8 @@ class TitlesController < ApplicationController
         cat_search.build do 
           with(:category_id, shelf0[idx].category.id) 
         end 
-        cat_search.build do
-          keywords(params[:query] )
+        cat_search.build  do
+          keywords(params[:query] ) {minimum_match 1}
         end
         cat_search.build do 
           with(:branch).any_of Title::BRANCH
@@ -277,8 +278,8 @@ class TitlesController < ApplicationController
           paginate(:page => params[:page], :per_page => per_page)
           facet(:category_id)
         end
-        cat_search.build do 
-          with(:category_id, cat.id) 
+        cat_search.build  do 
+          with(:category_id, cat.id) {minimum_match 1}
         end 
         cat_search.build do 
           with(:branch).any_of Title::BRANCH
