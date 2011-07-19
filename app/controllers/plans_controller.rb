@@ -3,7 +3,7 @@ class PlansController < ApplicationController
 
   def index
     @branches = current_user.companies[0].branches
-    if current_user.companies[0].branches.collect{|x| x.id}.include?(params[:b])
+    if current_user.companies[0].branches.collect{|x| x.id}.include?(params[:b].to_i)
       @branch = Branch.find(params[:b].to_i)
     else 
       @branch = Branch.find(current_user.companies[0].branches[0])
